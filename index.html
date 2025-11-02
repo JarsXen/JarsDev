@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roblox Model Hub - Premium Free Assets</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #667eea;
+            --primary-light: #764ba2;
+            --secondary: #f093fb;
+            --accent: #4facfe;
+            --dark: #0a0e27;
+            --dark-alt: #13182b;
+            --card: rgba(255, 255, 255, 0.05);
+            --card-hover: rgba(255, 255, 255, 0.08);
+            --text: #ffffff;
+            --text-dim: #a0aec0;
+            --success: #00d9ff;
+            --danger: #ff6b9d;
+            --glass: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--dark);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            opacity: 0.05;
+        }
+
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(240, 147, 251, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(79, 172, 254, 0.2) 0%, transparent 50%);
+            animation: bgMove 20s ease infinite;
+        }
+
+        @keyframes bgMove {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(5%, 5%) rotate(120deg); }
+            66% { transform: translate(-5%, 5%) rotate(240deg); }
+        }
+
+        /* Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) translateX(50px) scale(0); opacity: 0; }
+        }
+
+        /* Header */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(10, 14, 39, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Modern Logo */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-container:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-icon {
+            position: relative;
+            width: 50px;
+            height: 50px;
+        }
+
+        .logo-cube {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 12px;
+            animation: rotateCube 10s infinite linear;
+            box-shadow: 0 0 30px rgba(102, 126, 234, 0.5);
+        }
+
+        .logo-cube::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60%;
+            height: 60%;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+        }
+
+        @keyframes rotateCube {
+            0% { transform: rotateY(0deg) rotateX(0deg); }
+            100% { transform: rotateY(360deg) rotateX(360deg); }
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-subtitle {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Glass Buttons */
+        .btn {
+            padding: 0.75rem 1.75rem;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(102, 126, 234, 0.6);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger), #ff8fab);
+            color: white;
+            box-shadow: 0 8px 24px rgba(255, 107, 157, 0.4);
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(255, 107, 157, 0.6);
+        }
+
+        .btn-glass {
+            background: var(--glass);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .btn-glass:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Search Bar */
+        .search-section {
+            position: relative;
+            z-index: 2;
+            max-width: 1400px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .search-wrapper {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-box {
+            position: relative;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            padding: 1rem 4rem 1rem 2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-box:focus-within {
+            border-color: var(--primary);
+            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .search-box input {
+            width: 100%;
+            border: none;
+            background: transparent;
+            color: var(--text);
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .search-box input::placeholder {
+            color: var(--text-dim);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-dim);
+            font-size: 1.2rem;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+            animation: gradientSlide 5s ease infinite;
+            background-size: 200% 200%;
+        }
+
+        @keyframes gradientSlide {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-dim);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        /* Model Grid */
+        .models-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .model-card {
+            background: var(--card);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .model-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 0;
+        }
+
+        .model-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.4);
+            border-color: var(--primary);
+        }
+
+        .model-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .model-thumbnail {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            background: linear-gradient(135deg, var(--dark-alt), var(--dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .model-thumbnail i {
+            font-size: 4rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .model-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .model-info {
+            padding: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .model-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        .model-desc {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .model-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+        }
+
+        .model-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .btn-download {
+            flex: 1;
+            background: linear-gradient(135deg, var(--success), #00b8d4);
+            color: white;
+            padding: 0.85rem;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(0, 217, 255, 0.3);
+        }
+
+        .btn-download:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 24px rgba(0, 217, 255, 0.5);
+        }
+
+        .btn-delete {
+            background: var(--glass);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--danger);
+            padding: 0.85rem 1rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-delete:hover {
+            background: var(--danger);
+            color: white;
+        }
+
+        /* Upload Section */
+        .upload-section {
+            display: none;
+            max-width: 900px;
+            margin: 2rem auto;
+            background: var(--card);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .upload-section.active {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* File Upload Zone */
+        .file-upload-zone {
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 3rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            margin-bottom: 2rem;
+            background: var(--glass);
+        }
+
+        .file-upload-zone:hover,
+        .file-upload-zone.dragover {
+            border-color: var(--primary);
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .file-upload-zone i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .file-info {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: var(--glass);
+            border-radius: 12px;
+            display: none;
+        }
+
+        .file-info.active {
+            display: block;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text);
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            color: var(--text);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 3000;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .modal.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: var(--dark-alt);
+            padding: 3rem;
+            border-radius: 24px;
+            max-width: 450px;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-content h2 {
+            margin-bottom: 2rem;
+            text-align: center;
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 5rem 2rem;
+            color: var(--text-dim);
+        }
+
+        .empty-state i {
+            font-size: 5rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.3;
+        }
+
+        .empty-state h2 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .loading i {
+            font-size: 3rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .models-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .upload-section {
+                padding: 2rem;
+            }
+
+            .modal-content {
+                padding: 2rem;
+            }
+
+            .stats {
+                gap: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Animation -->
+    <div class="bg-animation"></div>
+    <div class="particles" id="particles"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo-container" onclick="showHome()">
+                <div class="logo-icon">
+                    <div class="logo-cube"></div>
+                </div>
+                <div class="logo-text">
+                    <div class="logo-title">JarsDev</div>
+                    <div class="logo-subtitle">Roblox Assets</div>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-primary" id="loginBtn" onclick="showLoginModal()">
+                    <i class="fas fa-lock"></i>
+                    <span>Admin Portal</span>
+                </button>
+                <button class="btn btn-danger" id="logoutBtn" onclick="logout()" style="display: none;">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Search Bar -->
+    <div class="search-section" id="searchSection">
+        <div class="search-wrapper">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Cari model yang kamu butuhkan..." oninput="searchModels()">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Home Page -->
+        <div id="homePage">
+            <div class="hero">
+                <h1>Free Assets Roblox Studio</h1>
+                <p>Download koleksi model Roblox Studio berkualitas tinggi secara gratis untuk project kamu!</p>
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-number" id="totalModels">0</div>
+                        <div class="stat-label">Total Models</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="totalDownloads">0</div>
+                        <div class="stat-label">Downloads</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="loadingModels" class="loading">
+                <i class="fas fa-spinner"></i>
+                <p>Memuat koleksi models...</p>
+            </div>
+
+            <div id="modelsContainer" class="models-grid"></div>
+
+            <div id="noModels" class="empty-state" style="display: none;">
+                <i class="fas fa-box-open"></i>
+                <h2>Belum Ada Model</h2>
+                <p>Admin belum mengupload model apapun. Stay tuned ya!</p>
+            </div>
+        </div>
+
+        <!-- Upload Section -->
+        <div id="uploadSection" class="upload-section">
+            <h2 class="section-title"><i class="fas fa-cloud-upload-alt"></i> Upload Model Baru</h2>
+            
+            <form id="uploadForm" onsubmit="uploadModel(event)">
+                <!-- File Upload Zone -->
+                <div class="file-upload-zone" id="dropZone">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <h3>Drag & Drop File Model</h3>
+                    <p style="color: var(--text-dim); margin-top: 0.5rem;">atau klik untuk browse file</p>
+                    <p style="color: var(--text-dim); font-size: 0.85rem; margin-top: 0.5rem;">Format: .rbxm, .rbxmx (Max 10MB)</p>
+                    <input type="file" id="modelFileInput" accept=".rbxm,.rbxmx" style="display: none;" onchange="handleFileSelect(event)">
+                </div>
+
+                <div id="fileInfo" class="file-info">
+                    <i class="fas fa-file"></i>
+                    <span id="fileName"></span>
+                    <button type="button" onclick="clearFile()" style="float: right; background: none; border: none; color: var(--danger); cursor: pointer;">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <div class="form-group">
+                    <label><i class="fas fa-tag"></i> Nama Model *</label>
+                    <input type="text" id="modelName" required placeholder="Contoh: Epic Sword Model">
+                </div>
+
+                <div class="form-group">
+                    <label><i class="fas fa-align-left"></i> Deskripsi *</label>
+                    <textarea id="modelDesc" required placeholder="Jelaskan tentang model ini, kegunaan, dan fitur-fiturnya..."></textarea>
+                </div>
+
+                <div class="file-upload-zone" id="thumbDropZone" style="padding: 2rem;">
+                    <i class="fas fa-image"></i>
+                    <h4>Upload Thumbnail (Opsional)</h4>
+                    <p style="color: var(--text-dim); font-size: 0.85rem; margin-top: 0.5rem;">PNG, JPG (Max 2MB)</p>
+                    <input type="file" id="thumbnailInput" accept="image/*" style="display: none;" onchange="handleThumbnailSelect(event)">
+                </div>
+
+                <div id="thumbInfo" class="file-info">
+                    <i class="fas fa-image"></i>
+                    <span id="thumbName"></span>
+                    <button type="button" onclick="clearThumb()" style="float: right; background: none; border: none; color: var(--danger); cursor: pointer;">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1.25rem; font-size: 1.1rem; margin-top: 1rem;">
+                    <i class="fas fa-rocket"></i> Publish Model
+                </button>
+            </form>
+
+            <hr style="margin: 3rem 0; border: 1px solid rgba(255, 255, 255, 0.1);">
+            
+            <h2 class="section-title"><i class="fas fa-list"></i> Model Manager</h2>
+            <div id="adminModelsContainer" class="models-grid"></div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <h2><i class="fas fa-shield-alt"></i> Admin Login</h2>
+            <form id="loginForm" onsubmit="login(event)">
+                <div class="form-group">
+                    <label><i class="fas fa-user"></i> Username</label>
+                    <input type="text" id="username" required placeholder="Masukkan username">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-key"></i> Password</label>
+                    <input type="password" id="password" required placeholder="Masukkan password">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1rem; margin-bottom: 0.75rem;">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+                <button type="button" class="btn btn-glass" style="width: 100%;" onclick="closeLoginModal()">
+                    <i class="fas fa-times"></i> Batal
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Create particles
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.width = Math.random() * 4 + 2 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        createParticles();
+
+        // State Management
+        let isLoggedIn = false;
+        let models = [];
+        let currentModelFile = null;
+        let currentThumbFile = null;
+        let downloadCount = 0;
+
+        const ADMIN_CREDENTIALS = {
+            username: 'jarsdev',
+            password: 'jarsdev12'
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadModels();
+            await loadStats();
+            checkLoginStatus();
+            setupDragAndDrop();
+        });
+
+        // Setup Drag and Drop
+        function setupDragAndDrop() {
+            const dropZone = document.getElementById('dropZone');
+            const thumbDropZone = document.getElementById('thumbDropZone');
+            const fileInput = document.getElementById('modelFileInput');
+            const thumbInput = document.getElementById('thumbnailInput');
+
+            // Model file drop zone
+            dropZone.addEventListener('click', () => fileInput.click());
+            dropZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                dropZone.classList.add('dragover');
+            });
+            dropZone.addEventListener('dragleave', () => {
+                dropZone.classList.remove('dragover');
+            });
+            dropZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                dropZone.classList.remove('dragover');
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    handleFile(files[0]);
+                }
+            });
+
+            // Thumbnail drop zone
+            thumbDropZone.addEventListener('click', () => thumbInput.click());
+            thumbDropZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                thumbDropZone.classList.add('dragover');
+            });
+            thumbDropZone.addEventListener('dragleave', () => {
+                thumbDropZone.classList.remove('dragover');
+            });
+            thumbDropZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                thumbDropZone.classList.remove('dragover');
+                const files = e.dataTransfer.files;
+                if (files.length > 0 && files[0].type.startsWith('image/')) {
+                    handleThumbnail(files[0]);
+                }
+            });
+        }
+
+        // Handle File Select
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (file) {
+                handleFile(file);
+            }
+        }
+
+        function handleFile(file) {
+            const validTypes = ['.rbxm', '.rbxmx'];
+            const fileName = file.name.toLowerCase();
+            const isValid = validTypes.some(type => fileName.endsWith(type));
+
+            if (!isValid) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'File Tidak Valid',
+                    text: 'Hanya file .rbxm atau .rbxmx yang diperbolehkan',
+                    background: '#13182b',
+                    color: '#ffffff'
+                });
+                return;
+            }
+
+            if (file.size > 10 * 1024 * 1024) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'File Terlalu Besar',
+                    text: 'Ukuran file maksimal 10MB',
+                    background: '#13182b',
+                    color: '#ffffff'
+                });
+                return;
+            }
+
+            currentModelFile = file;
+            document.getElementById('fileName').textContent = file.name;
+            document.getElementById('fileInfo').classList.add('active');
+        }
+
+        function clearFile() {
+            currentModelFile = null;
+            document.getElementById('modelFileInput').value = '';
+            document.getElementById('fileInfo').classList.remove('active');
+        }
+
+        // Handle Thumbnail
+        function handleThumbnailSelect(event) {
+            const file = event.target.files[0];
+            if (file) {
+                handleThumbnail(file);
+            }
+        }
+
+        function handleThumbnail(file) {
+            if (!file.type.startsWith('image/')) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'File Tidak Valid',
+                    text: 'Hanya file gambar yang diperbolehkan',
+                    background: '#13182b',
+                    color: '#ffffff'
+                });
+                return;
+            }
+
+            if (file.size > 2 * 1024 * 1024) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'File Terlalu Besar',
+                    text: 'Ukuran gambar maksimal 2MB',
+                    background: '#13182b',
+                    color: '#ffffff'
+                });
+                return;
+            }
+
+            currentThumbFile = file;
+            document.getElementById('thumbName').textContent = file.name;
+            document.getElementById('thumbInfo').classList.add('active');
+        }
+
+        function clearThumb() {
+            currentThumbFile = null;
+            document.getElementById('thumbnailInput').value = '';
+            document.getElementById('thumbInfo').classList.remove('active');
+        }
+
+        // Convert File to Base64
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // Check Login Status
+        function checkLoginStatus() {
+            const stored = localStorage.getItem('adminLoggedIn');
+            if (stored === 'true') {
+                isLoggedIn = true;
+                updateUI();
+            }
+        }
+
+        // Login
+        async function login(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
+                isLoggedIn = true;
+                localStorage.setItem('adminLoggedIn', 'true');
+                closeLoginModal();
+                updateUI();
+                
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Login Berhasil!',
+                    text: 'Selamat datang di Admin Portal',
+                    background: '#13182b',
+                    color: '#ffffff',
+                    confirmButtonColor: '#667eea',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Login Gagal!',
+                    text: 'Username atau password salah',
+                    background: '#13182b',
+                    color: '#ffffff',
+                    confirmButtonColor: '#ff6b9d'
+                });
+            }
+        }
+
+        // Logout
+        function logout() {
+            Swal.fire({
+                title: 'Yakin ingin logout?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, Logout',
+                cancelButtonText: 'Batal',
+                background: '#13182b',
+                color: '#ffffff',
+                confirmButtonColor: '#ff6b9d',
+                cancelButtonColor: '#667eea'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    isLoggedIn = false;
+                    localStorage.removeItem('adminLoggedIn');
+                    updateUI();
+                    showHome();
+                    
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Logout Berhasil',
+                        background: '#13182b',
+                        color: '#ffffff',
+                        confirmButtonColor: '#667eea',
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+                }
+            });
+        }
+
+        // Update UI
+        function updateUI() {
+            document.getElementById('loginBtn').style.display = isLoggedIn ? 'none' : 'inline-flex';
+            document.getElementById('logoutBtn').style.display = isLoggedIn ? 'inline-flex' : 'none';
+            
+            if (isLoggedIn) {
+                document.getElementById('uploadSection').classList.add('active');
+                document.getElementById('homePage').style.display = 'none';
+                document.getElementById('searchSection').style.display = 'none';
+                loadAdminModels();
+            } else {
+                document.getElementById('uploadSection').classList.remove('active');
+                document.getElementById('homePage').style.display = 'block';
+                document.getElementById('searchSection').style.display = 'block';
+            }
+        }
+
+        // Show Home
+        function showHome() {
+            document.getElementById('homePage').style.display = 'block';
+            document.getElementById('uploadSection').classList.remove('active');
+            document.getElementById('searchSection').style.display = 'block';
+        }
+
+        // Modal Functions
+        function showLoginModal() {
+            document.getElementById('loginModal').classList.add('active');
+        }
+
+        function closeLoginModal() {
+            document.getElementById('loginModal').classList.remove('active');
+            document.getElementById('loginForm').reset();
+        }
+
+        // Load Models
+        async function loadModels() {
+            try {
+                document.getElementById('loadingModels').style.display = 'block';
+                const result = await window.storage.list('model:');
+                
+                if (result && result.keys && result.keys.length > 0) {
+                    models = [];
+                    for (const key of result.keys) {
+                        try {
+                            const data = await window.storage.get(key);
+                            if (data && data.value) {
+                                models.push(JSON.parse(data.value));
+                            }
+                        } catch (err) {
+                            console.log('Model not found:', key);
+                        }
+                    }
+                    models.sort((a, b) => new Date(b.uploadDate) - new Date(a.uploadDate));
+                    displayModels(models);
+                } else {
+                    document.getElementById('noModels').style.display = 'block';
+                    document.getElementById('modelsContainer').innerHTML = '';
+                }
+            } catch (error) {
+                console.log('No models yet');
+                document.getElementById('noModels').style.display = 'block';
+            } finally {
+                document.getElementById('loadingModels').style.display = 'none';
+            }
+        }
+
+        // Load Stats
+        async function loadStats() {
+            try {
+                const statsData = await window.storage.get('stats');
+                if (statsData) {
+                    const stats = JSON.parse(statsData.value);
+                    downloadCount = stats.downloads || 0;
+                }
+            } catch (error) {
+                downloadCount = 0;
+            }
+            
+            document.getElementById('totalModels').textContent = models.length;
+            document.getElementById('totalDownloads').textContent = downloadCount;
+        }
+
+        // Save Stats
+        async function saveStats() {
+            try {
+                await window.storage.set('stats', JSON.stringify({ downloads: downloadCount }));
+            } catch (error) {
+                console.error('Failed to save stats');
+            }
+        }
+
+        // Display Models
+        function displayModels(modelsList) {
+            const container = document.getElementById('modelsContainer');
+            
+            if (modelsList.length === 0) {
+                document.getElementById('noModels').style.display = 'block';
+                container.innerHTML = '';
+                return;
+            }
+
+            document.getElementById('noModels').style.display = 'none';
+            
+            container.innerHTML = modelsList.map(model => `
+                <div class="model-card">
+                    ${model.thumbnail ? 
+                        `<div class="model-thumbnail"><img src="${model.thumbnail}" alt="${model.name}"></div>` :
+                        `<div class="model-thumbnail"><i class="fas fa-cube"></i></div>`
+                    }
+                    <div class="model-info">
+                        <h3 class="model-title">${model.name}</h3>
+                        <p class="model-desc">${model.description}</p>
+                        <div class="model-meta">
+                            <span><i class="fas fa-calendar"></i> ${new Date(model.uploadDate).toLocaleDateString('id-ID')}</span>
+                        </div>
+                        <div class="model-actions">
+                            <button class="btn-download" onclick="downloadModel('${model.id}', '${model.name.replace(/'/g, "\\'")}')">
+                                <i class="fas fa-download"></i> Download
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('totalModels').textContent = modelsList.length;
+        }
+
+        // Load Admin Models
+        async function loadAdminModels() {
+            await loadModels();
+            const container = document.getElementById('adminModelsContainer');
+            
+            if (models.length === 0) {
+                container.innerHTML = '<div class="empty-state"><i class="fas fa-box-open"></i><h3>Belum ada model</h3></div>';
+                return;
+            }
+            
+            container.innerHTML = models.map(model => `
+                <div class="model-card">
+                    ${model.thumbnail ? 
+                        `<div class="model-thumbnail"><img src="${model.thumbnail}" alt="${model.name}"></div>` :
+                        `<div class="model-thumbnail"><i class="fas fa-cube"></i></div>`
+                    }
+                    <div class="model-info">
+                        <h3 class="model-title">${model.name}</h3>
+                        <p class="model-desc">${model.description}</p>
+                        <div class="model-meta">
+                            <span><i class="fas fa-calendar"></i> ${new Date(model.uploadDate).toLocaleDateString('id-ID')}</span>
+                        </div>
+                        <div class="model-actions">
+                            <button class="btn-download" onclick="downloadModel('${model.id}', '${model.name.replace(/'/g, "\\'")}')">
+                                <i class="fas fa-download"></i> Download
+                            </button>
+                            <button class="btn-delete" onclick="deleteModel('${model.id}')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Upload Model
+        async function uploadModel(e) {
+            e.preventDefault();
+
+            if (!currentModelFile) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'File Model Belum Dipilih',
+                    text: 'Silakan pilih file model terlebih dahulu',
+                    background: '#13182b',
+                    color: '#ffffff'
+                });
+                return;
+            }
+            
+            const name = document.getElementById('modelName').value.trim();
+            const description = document.getElementById('modelDesc').value.trim();
+
+            Swal.fire({
+                title: 'Uploading...',
+                html: 'Mohon tunggu, sedang mengupload model',
+                allowOutsideClick: false,
+                background: '#13182b',
+                color: '#ffffff',
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            try {
+                const fileBase64 = await fileToBase64(currentModelFile);
+                const thumbBase64 = currentThumbFile ? await fileToBase64(currentThumbFile) : null;
+
+                const model = {
+                    id: Date.now().toString(),
+                    name,
+                    description,
+                    fileData: fileBase64,
+                    fileName: currentModelFile.name,
+                    thumbnail: thumbBase64,
+                    uploadDate: new Date().toISOString()
+                };
+
+                await window.storage.set(`model:${model.id}`, JSON.stringify(model));
+                
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Upload Berhasil!',
+                    text: 'Model berhasil dipublish',
+                    background: '#13182b',
+                    color: '#ffffff',
+                    confirmButtonColor: '#667eea'
+                });
+
+                document.getElementById('uploadForm').reset();
+                clearFile();
+                clearThumb();
+                await loadAdminModels();
+                await loadModels();
+                await loadStats();
+            } catch (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Upload Gagal!',
+                    text: 'Terjadi kesalahan saat mengupload model',
+                    background: '#13182b',
+                    color: '#ffffff',
+                    confirmButtonColor: '#ff6b9d'
+                });
+            }
+        }
+
+        // Download Model
+        async function downloadModel(id, name) {
+            try {
+                const modelData = await window.storage.get(`model:${id}`);
+                if (modelData) {
+                    const model = JSON.parse(modelData.value);
+                    
+                    // Create download link
+                    const link = document.createElement('a');
+                    link.href = model.fileData;
+                    link.download = model.fileName || name + '.rbxm';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+
+                    // Update download count
+                    downloadCount++;
+                    await saveStats();
+                    document.getElementById('totalDownloads').textContent = downloadCount;
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Download Dimulai!',
+                        text: `Downloading ${name}`,
+                        background: '#13182b',
+                        color: '#ffffff',
+                        confirmButtonColor: '#667eea',
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+                }
+            } catch (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Download Gagal',
+                    text: 'Terjadi kesalahan saat mendownload',
+                    background: '#13182b',
+                    color: '#ffffff'
+                });
+            }
+        }
+
+        // Delete Model
+        async function deleteModel(id) {
+            const result = await Swal.fire({
+                title: 'Hapus Model?',
+                text: 'Model yang dihapus tidak bisa dikembalikan!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, Hapus',
+                cancelButtonText: 'Batal',
+                background: '#13182b',
+                color: '#ffffff',
+                confirmButtonColor: '#ff6b9d',
+                cancelButtonColor: '#667eea'
+            });
+
+            if (result.isConfirmed) {
+                try {
+                    await window.storage.delete(`model:${id}`);
+                    
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Terhapus!',
+                        text: 'Model berhasil dihapus',
+                        background: '#13182b',
+                        color: '#ffffff',
+                        confirmButtonColor: '#667eea',
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+
+                    await loadAdminModels();
+                    await loadModels();
+                    await loadStats();
+                } catch (error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Gagal Menghapus!',
+                        text: 'Terjadi kesalahan',
+                        background: '#13182b',
+                        color: '#ffffff'
+                    });
+                }
+            }
+        }
+
+        // Search Models
+        function searchModels() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = models.filter(model => 
+                model.name.toLowerCase().includes(query) || 
+                model.description.toLowerCase().includes(query)
+            );
+            displayModels(filtered);
+        }
+
+        // Close modal on outside click
+        document.getElementById('loginModal').addEventListener('click', (e) => {
+            if (e.target.id === 'loginModal') {
+                closeLoginModal();
+            }
+        });
+    </script>
+</body>
+</html>
