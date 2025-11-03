@@ -1,1 +1,429 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Roblox Model Hub - Premium Free Assets (Firebase Version)</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{--primary:#667eea;--primary-light:#764ba2;--secondary:#f093fb;--accent:#4facfe;--dark:#0a0e27;--dark-alt:#13182b;--card:rgba(255,255,255,0.05);--card-hover:rgba(255,255,255,0.08);--text:#ffffff;--text-dim:#a0aec0;--success:#00d9ff;--danger:#ff6b9d;--glass:rgba(255,255,255,0.1)}
+    body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--text);min-height:100vh;line-height:1.6;overflow-x:hidden;position:relative}
+    .bg-animation{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;background:linear-gradient(135deg,#667eea 0%,#764ba2 50%,#f093fb 100%);opacity:0.05}
+    .particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none}
+    .particle{position:absolute;background:rgba(255,255,255,0.5);border-radius:50%;animation:float 15s infinite ease-in-out}
+    @keyframes float{0%,100%{transform:translateY(0)}100%{transform:translateY(-100vh)}}
+    header{position:sticky;top:0;z-index:1000;background:rgba(10,14,39,0.8);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.1);padding:1rem 0;box-shadow:0 8px 32px rgba(0,0,0,0.3)}
+    .header-container{max-width:1400px;margin:0 auto;padding:0 2rem;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+    .logo-container{display:flex;align-items:center;gap:1rem;cursor:pointer}
+    .logo-icon{width:50px;height:50px;position:relative}
+    .logo-cube{width:100%;height:100%;border-radius:12px;background:linear-gradient(135deg,var(--primary),var(--secondary));animation:spin 10s linear infinite}
+    @keyframes spin{0%{transform:rotateY(0)}100%{transform:rotateY(360deg)}}
+    .logo-text{display:flex;flex-direction:column}
+    .logo-title{font-size:1.5rem;font-weight:800;background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .logo-subtitle{font-size:0.75rem;color:var(--text-dim);letter-spacing:2px;text-transform:uppercase}
+    .btn{padding:0.75rem 1.75rem;border:none;border-radius:12px;font-weight:600;cursor:pointer;transition:0.3s;display:inline-flex;align-items:center;gap:0.5rem;font-size:0.95rem;position:relative;overflow:hidden}
+    .btn-primary{background:linear-gradient(135deg,var(--primary),var(--primary-light));color:white}
+    .btn-danger{background:linear-gradient(135deg,var(--danger),#ff8fab);color:white}
+    .btn-glass{background:var(--glass);border:1px solid rgba(255,255,255,0.2);color:white}
+    .header-actions{display:flex;align-items:center;gap:0.5rem}
+    .social-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:var(--glass);border:1px solid rgba(255,255,255,0.06);cursor:pointer}
+    .search-section{max-width:1400px;margin:3rem auto;padding:0 2rem}
+    .search-wrapper{max-width:600px;margin:0 auto}
+    .search-box{background:var(--glass);border:1px solid rgba(255,255,255,0.1);border-radius:50px;padding:1rem 4rem 1rem 2rem}
+    .search-box input{width:100%;border:none;background:transparent;color:var(--text);font-size:1rem;outline:none}
+    .search-icon{position:absolute;right:2rem;top:50%;transform:translateY(-50%);color:var(--text-dim)}
+    .container{max-width:1400px;margin:0 auto;padding:2rem}
+    .hero{text-align:center;margin-bottom:3rem}
+    .hero h1{font-size:3rem;font-weight:800;background:linear-gradient(135deg,var(--primary),var(--secondary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .models-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:2rem}
+    .model-card{background:var(--card);border-radius:20px;overflow:hidden;transition:0.4s}
+    .model-card:hover{background:var(--card-hover)}
+    .model-thumbnail{height:220px;background:var(--dark-alt);display:flex;align-items:center;justify-content:center}
+    .model-thumbnail img{width:100%;height:100%;object-fit:cover}
+    .model-info{padding:1.5rem}
+    .model-title{font-size:1.3rem;font-weight:700;margin-bottom:0.5rem}
+    .model-desc{color:var(--text-dim);font-size:0.95rem;margin-bottom:1rem}
+    .btn-download{background:linear-gradient(135deg,var(--success),#00b8d4);color:white;padding:0.85rem;border:none;border-radius:12px;cursor:pointer;font-weight:600;width:100%}
+    .upload-section{display:none;max-width:900px;margin:2rem auto;background:var(--card);border-radius:24px;padding:3rem}
+    .upload-section.active{display:block}
+    .file-upload-zone{border:2px dashed rgba(255,255,255,0.2);border-radius:16px;padding:3rem;text-align:center;margin-bottom:2rem;cursor:pointer;background:var(--glass)}
+    .file-info{display:none;margin-top:1rem;padding:1rem;background:var(--glass);border-radius:12px}
+    .file-info.active{display:block}
+    .form-group{margin-bottom:1.5rem}
+    .form-group label{display:block;margin-bottom:0.5rem;font-weight:600}
+    .form-group input,.form-group textarea{width:100%;padding:1rem;border:1px solid rgba(255,255,255,0.1);border-radius:12px;background:var(--glass);color:var(--text)}
+    .modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);backdrop-filter:blur(10px);z-index:3000;align-items:center;justify-content:center;padding:1rem}
+    .modal.active{display:flex}
+    .modal-content{background:var(--dark-alt);padding:3rem;border-radius:24px;max-width:450px;width:100%;border:1px solid rgba(255,255,255,0.1)}
+    .empty-state{text-align:center;padding:5rem 2rem;color:var(--text-dim)}
+  </style>
+</head>
+<body>
+  <div class="bg-animation"></div>
+  <div class="particles" id="particles"></div>
 
+  <header>
+    <div class="header-container">
+      <div class="logo-container" onclick="showHome()">
+        <div class="logo-icon"><div class="logo-cube"></div></div>
+        <div class="logo-text"><div class="logo-title">JarsDev</div><div class="logo-subtitle">Roblox Assets</div></div>
+      </div>
+      <div class="header-actions" id="headerActions"></div>
+    </div>
+  </header>
+
+  <div class="search-section" id="searchSection">
+    <div class="search-wrapper">
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Cari model..." oninput="searchModels()">
+        <i class="fas fa-search search-icon"></i>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div id="homePage">
+      <div class="hero">
+        <h1>Free Assets Roblox Studio</h1>
+        <p>Download koleksi model Roblox Studio gratis & premium!</p>
+        <div class="stats">
+          <div class="stat-item"><div id="totalModels">0</div><div>Total Models</div></div>
+          <div class="stat-item"><div id="totalDownloads">0</div><div>Downloads</div></div>
+        </div>
+      </div>
+
+      <div id="loadingModels" class="loading"><i class="fas fa-spinner"></i> Memuat koleksi...</div>
+      <div id="modelsContainer" class="models-grid"></div>
+      <div id="noModels" class="empty-state" style="display:none;"><i class="fas fa-box-open"></i><h2>Belum Ada Model</h2><p>Admin belum mengupload model apapun.</p></div>
+    </div>
+
+    <div id="uploadSection" class="upload-section">
+      <h2><i class="fas fa-cloud-upload-alt"></i> Upload Model Baru</h2>
+      <form id="uploadForm" onsubmit="uploadModel(event)">
+        <div class="file-upload-zone" id="dropZone">
+          <i class="fas fa-cloud-upload-alt"></i>
+          <h3>Drag & Drop File Model</h3>
+          <p>atau klik untuk pilih file</p>
+          <input type="file" id="modelFileInput" accept=".rbxm,.rbxmx" style="display:none" onchange="handleFileSelect(event)">
+        </div>
+        <div id="fileInfo" class="file-info"><i class="fas fa-file"></i> <span id="fileName"></span></div>
+
+        <div class="form-group"><label>Nama Model *</label><input type="text" id="modelName" required></div>
+        <div class="form-group"><label>Deskripsi *</label><textarea id="modelDesc" required></textarea></div>
+        <div class="form-group"><label>File URL (opsional)</label><input type="url" id="fileUrlInput" placeholder="https://drive.google.com/..."></div>
+
+        <div class="file-upload-zone" id="thumbDropZone"><i class="fas fa-image"></i><h4>Upload Thumbnail (Opsional)</h4><input type="file" id="thumbnailInput" accept="image/*" style="display:none" onchange="handleThumbnailSelect(event)"></div>
+        <div id="thumbInfo" class="file-info"><i class="fas fa-image"></i> <span id="thumbName"></span></div>
+
+        <button type="submit" class="btn btn-primary" style="width:100%;margin-top:1rem;"><i class="fas fa-rocket"></i> Publish Model</button>
+      </form>
+      <hr style="margin:2rem 0;border:1px solid rgba(255,255,255,0.1)">
+      <h2><i class="fas fa-list"></i> Model Manager</h2>
+      <div id="adminModelsContainer" class="models-grid"></div>
+    </div>
+  </div>
+
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <h2><i class="fas fa-shield-alt"></i> Admin Login</h2>
+      <form id="loginForm" onsubmit="login(event)">
+        <div class="form-group"><label>Username</label><input type="text" id="username" required></div>
+        <div class="form-group"><label>Password</label><input type="password" id="password" required></div>
+        <button type="submit" class="btn btn-primary" style="width:100%">Login</button>
+        <button type="button" class="btn btn-glass" style="width:100%;margin-top:0.5rem" onclick="closeLoginModal()">Batal</button>
+      </form>
+    </div>
+  </div>
+<!-- ======================== SCRIPT FIREBASE ======================== -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+  import { getStorage, ref as sRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-storage.js";
+  import { getDatabase, ref, set, get, child, update, remove } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+
+  // 🔥 CONFIG KAMU
+  const firebaseConfig = {
+    apiKey: "AIzaSyDY-3QUGeshEhuVU0g5JwNpZd2oYAYwR9A",
+    authDomain: "forum-diskus.firebaseapp.com",
+    databaseURL: "https://forum-diskus-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "forum-diskus",
+    storageBucket: "forum-diskus.appspot.com",
+    messagingSenderId: "434039824623",
+    appId: "1:434039824623:web:8f2bbc06217bd06fd4bb1a",
+    measurementId: "G-CH710HB633"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const storage = getStorage(app);
+  const db = getDatabase(app);
+
+  /* =======================
+     VAR & KONFIGURASI
+     ======================= */
+  const CONFIG = { social: { discord: "https://discord.gg/wzMTH83mVB" } };
+  const ADMIN_KEY = "JarsDev2025";
+
+  let isLoggedIn = false;
+  let currentModelFile = null;
+  let currentThumbFile = null;
+  let models = [];
+
+  /* =======================
+     ADMIN & LOGIN
+     ======================= */
+  async function hashString(str) {
+    const enc = new TextEncoder();
+    const data = enc.encode(str);
+    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+    return Array.from(new Uint8Array(hashBuffer))
+      .map(b => b.toString(16).padStart(2, "0"))
+      .join("");
+  }
+
+  async function setAdminCredentials(username, password, key) {
+    if (key !== ADMIN_KEY) {
+      Swal.fire({ icon: "error", title: "Kunci admin salah!", background: "#13182b", color: "#fff" });
+      return;
+    }
+    const hash = await hashString(`${username}:${password}`);
+    localStorage.setItem("adminHash", hash);
+    Swal.fire({ icon: "success", title: "Admin berhasil disetup!", background: "#13182b", color: "#fff" });
+  }
+
+  async function login(e) {
+    e.preventDefault();
+    const u = document.getElementById("username").value;
+    const p = document.getElementById("password").value;
+    const hash = localStorage.getItem("adminHash");
+    if (!hash) {
+      Swal.fire({ icon: "error", title: "Belum ada admin!", text: "Gunakan setAdminCredentials di console.", background: "#13182b", color: "#fff" });
+      return;
+    }
+    const attempt = await hashString(`${u}:${p}`);
+    if (attempt === hash) {
+      isLoggedIn = true;
+      localStorage.setItem("adminLoggedIn", "true");
+      closeLoginModal();
+      updateUI();
+      Swal.fire({ icon: "success", title: "Login Berhasil!", background: "#13182b", color: "#fff", timer: 1500, showConfirmButton: false });
+    } else {
+      Swal.fire({ icon: "error", title: "Login Gagal!", background: "#13182b", color: "#fff" });
+    }
+  }
+
+  function logout() {
+    localStorage.removeItem("adminLoggedIn");
+    isLoggedIn = false;
+    updateUI();
+  }
+
+  function checkLoginStatus() {
+    if (localStorage.getItem("adminLoggedIn") === "true") {
+      isLoggedIn = true;
+      updateUI();
+    }
+  }
+
+  /* =======================
+     FIREBASE STORAGE + DB
+     ======================= */
+  async function uploadFileToStorage(file, folder) {
+    const path = `${folder}/${Date.now()}_${file.name}`;
+    const storageRef = sRef(storage, path);
+    await uploadBytes(storageRef, file);
+    return await getDownloadURL(storageRef);
+  }
+
+  async function uploadModel(e) {
+    e.preventDefault();
+    const fileUrl = document.getElementById("fileUrlInput").value.trim();
+    const name = document.getElementById("modelName").value.trim();
+    const desc = document.getElementById("modelDesc").value.trim();
+
+    if (!name || !desc) {
+      Swal.fire({ icon: "warning", title: "Isi semua field!", background: "#13182b", color: "#fff" });
+      return;
+    }
+    if (!currentModelFile && !fileUrl) {
+      Swal.fire({ icon: "warning", title: "Tidak ada file!", background: "#13182b", color: "#fff" });
+      return;
+    }
+
+    Swal.fire({ title: "Mengunggah...", allowOutsideClick: false, didOpen: () => Swal.showLoading(), background: "#13182b", color: "#fff" });
+
+    try {
+      let modelURL = fileUrl ? googleDriveToDirect(fileUrl) : await uploadFileToStorage(currentModelFile, "models");
+      let thumbURL = currentThumbFile ? await uploadFileToStorage(currentThumbFile, "thumbnails") : null;
+
+      const id = Date.now().toString();
+      const modelData = { id, name, description: desc, fileUrl: modelURL, thumbUrl: thumbURL, uploadDate: new Date().toISOString(), downloads: 0 };
+      await set(ref(db, "models/" + id), modelData);
+
+      Swal.fire({ icon: "success", title: "Upload Berhasil!", background: "#13182b", color: "#fff" });
+      document.getElementById("uploadForm").reset();
+      clearFile();
+      clearThumb();
+      loadModels();
+    } catch (err) {
+      console.error(err);
+      Swal.fire({ icon: "error", title: "Upload Gagal!", text: err.message, background: "#13182b", color: "#fff" });
+    }
+  }
+
+  async function loadModels() {
+    try {
+      const snapshot = await get(child(ref(db), "models"));
+      if (snapshot.exists()) {
+        models = Object.values(snapshot.val()).sort((a, b) => new Date(b.uploadDate) - new Date(a.uploadDate));
+        displayModels(models);
+      } else {
+        models = [];
+        displayModels([]);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  async function downloadModel(id, name) {
+    try {
+      const snap = await get(child(ref(db), "models/" + id));
+      if (snap.exists()) {
+        const m = snap.val();
+        const link = document.createElement("a");
+        link.href = m.fileUrl;
+        link.target = "_blank";
+        link.download = m.name || `${id}.rbxm`;
+        link.click();
+
+        await update(ref(db, "models/" + id), { downloads: (m.downloads || 0) + 1 });
+        loadModels();
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  async function deleteModel(id) {
+    if (!confirm("Hapus model ini?")) return;
+    await remove(ref(db, "models/" + id));
+    loadModels();
+  }
+
+  /* =======================
+     FILE HANDLER
+     ======================= */
+  function handleFileSelect(e) {
+    const f = e.target.files[0];
+    if (f) {
+      currentModelFile = f;
+      document.getElementById("fileName").textContent = f.name;
+      document.getElementById("fileInfo").classList.add("active");
+    }
+  }
+
+  function handleThumbnailSelect(e) {
+    const f = e.target.files[0];
+    if (f) {
+      currentThumbFile = f;
+      document.getElementById("thumbName").textContent = f.name;
+      document.getElementById("thumbInfo").classList.add("active");
+    }
+  }
+
+  function clearFile() {
+    currentModelFile = null;
+    document.getElementById("fileInfo").classList.remove("active");
+  }
+
+  function clearThumb() {
+    currentThumbFile = null;
+    document.getElementById("thumbInfo").classList.remove("active");
+  }
+
+  function googleDriveToDirect(url) {
+    try {
+      const d = new URL(url);
+      if (d.hostname.includes("drive.google.com")) {
+        const path = d.pathname.split("/");
+        const idIndex = path.indexOf("d");
+        if (idIndex !== -1 && path[idIndex + 1]) return `https://drive.google.com/uc?export=download&id=${path[idIndex + 1]}`;
+        const idParam = d.searchParams.get("id");
+        if (idParam) return `https://drive.google.com/uc?export=download&id=${idParam}`;
+      }
+    } catch {}
+    return url;
+  }
+
+  /* =======================
+     UI & TAMPILAN
+     ======================= */
+  function displayModels(list) {
+    const c = document.getElementById("modelsContainer");
+    const admin = document.getElementById("adminModelsContainer");
+    c.innerHTML = "";
+    admin.innerHTML = "";
+    if (!list.length) {
+      document.getElementById("noModels").style.display = "block";
+      document.getElementById("loadingModels").style.display = "none";
+      return;
+    }
+    document.getElementById("noModels").style.display = "none";
+    document.getElementById("loadingModels").style.display = "none";
+
+    list.forEach(m => {
+      const card = `
+        <div class="model-card">
+          ${m.thumbUrl ? `<div class="model-thumbnail"><img src="${m.thumbUrl}"></div>` : `<div class="model-thumbnail"><i class="fas fa-cube"></i></div>`}
+          <div class="model-info">
+            <h3 class="model-title">${m.name}</h3>
+            <p class="model-desc">${m.description}</p>
+            <button class="btn-download" onclick="downloadModel('${m.id}','${m.name}')"><i class="fas fa-download"></i> Unduh</button>
+          </div>
+        </div>`;
+      c.innerHTML += card;
+      if (isLoggedIn)
+        admin.innerHTML += card.replace(
+          "</div></div>",
+          `<div class="model-actions"><button class="btn-delete" style="margin-top:0.5rem;background:#ff6b9d;color:#fff;border:none;border-radius:10px;padding:0.5rem 1rem;cursor:pointer;" onclick="deleteModel('${m.id}')"><i class="fas fa-trash"></i> Hapus</button></div></div>`
+        );
+    });
+
+    document.getElementById("totalModels").textContent = list.length;
+    document.getElementById("totalDownloads").textContent = list.reduce((a, b) => a + (b.downloads || 0), 0);
+  }
+
+  function updateUI() {
+    document.getElementById("uploadSection").classList.toggle("active", isLoggedIn);
+    document.getElementById("homePage").style.display = isLoggedIn ? "none" : "block";
+    document.getElementById("searchSection").style.display = isLoggedIn ? "none" : "block";
+  }
+
+  function showLoginModal() {
+    document.getElementById("loginModal").classList.add("active");
+  }
+  function closeLoginModal() {
+    document.getElementById("loginModal").classList.remove("active");
+  }
+
+  window.setAdminCredentials = setAdminCredentials;
+  window.downloadModel = downloadModel;
+  window.deleteModel = deleteModel;
+  window.uploadModel = uploadModel;
+  window.handleFileSelect = handleFileSelect;
+  window.handleThumbnailSelect = handleThumbnailSelect;
+  window.clearFile = clearFile;
+  window.clearThumb = clearThumb;
+  window.login = login;
+  window.logout = logout;
+  window.showLoginModal = showLoginModal;
+  window.closeLoginModal = closeLoginModal;
+
+  document.addEventListener("DOMContentLoaded", () => {
+    checkLoginStatus();
+    loadModels();
+  });
+</script>
+</body>
+</html>
